@@ -1,6 +1,6 @@
 # MASHLE
 
-_Mashle es un proyecto creado para realizar pruebas de automatización con locust usando python
+_Mashle es un proyecto creado para realizar pruebas de automatización con python usando selenium, behave y locust
 
 ## Comenzando 🚀
 
