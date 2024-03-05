@@ -1,43 +1,69 @@
 # MASHLE
 
-_Mashle es un proyecto creado para realizar pruebas de automatización con python usando selenium, behave y locust
+_Mashle is a project to API test automation. 
 
-## Comenzando 🚀
+## Start 🚀
 
-_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
-
-Mira **Deployment** para conocer como desplegar el proyecto.
+_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas_
 
 
-### Pre-requisitos 📋
+### Pre-requeriments 📋
 
-_Que cosas necesitas para instalar el software y como instalarlas_
+_First: You need to install behave, selenium and locust, with the commands next you can to run in your console_
 
-_1. Instalar locust_
+_1. Install behave_
+
+```
+pip3 install behave
+```
+
+_2. Install Selenium
+
+```
+pip3 install selenium
+```
+
+_3. Install locust_
+
+```
+pip3 install locust
+```
+_3. Install allure_
 
 ```
 pip3 install locust
 ```
 
-### Instalación 🔧
+### Running 🕹️
 
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
+_Exmaple:_
 
-_Dí cómo será ese paso_
-
-```
-Da un ejemplo
-```
-
-_Y repite_
+_For executing the test cases with behave, just you have that run the command next in your consola_
 
 ```
-hasta finalizar
+behave
 ```
+
+_For generate report with allure: _
+
+```
+behave -f allure_behave.formatter:AllureFormatter -o allure-results .\features
+```
+
+_For watching report: _
+
+```
+allure serve allure-reports
+```
+_For executing load test with locust, just you have that run the command next in your consola_
+
+```
+locust
+```
+
+
 
 _Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
 
-## Ejecutando las pruebas ⚙️
 
-_Explica como ejecutar las pruebas automatizadas para este sistema_
 
