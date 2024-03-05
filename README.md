@@ -31,7 +31,7 @@ pip3 install locust
 _3. Install allure_
 
 ```
-pip3 install locust
+pip3 install allure
 ```
 
 ### Running 🕹️
