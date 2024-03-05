@@ -1,32 +1,57 @@
-# steps/api_steps.py
-from behave import given, when, then
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
 import requests
+from behave import Given, When, Then
 
 
-@given('the API endpoint is "{api_url}"')
-def set_api_url(context, api_url):
-    context.api_url = api_url
+@Given('I have an endpoint "{url}"')
+def end_point(context, url):
+    context.api_url = url
 
 
-@when('I open the API endpoint in a browser')
-def open_api_in_browser(context):
-    # Utiliza Selenium para abrir la URL en un navegador
-    context.driver = webdriver.Chrome()
-    context.driver.get(context.api_url)
+@Given('I count in the following query params "{param}" and its value "{value}"')
+def get_params_first(context, param, value):
+    context.query_params = {param: value}
 
 
-@then('the API response should contain "{expected_data}"')
-def check_api_response(context, expected_data):
-    # Extrae y verifica la respuesta de la API utilizando Selenium
-    page_source = context.driver.page_source
-    assert expected_data in page_source
+@Given('I count in other query params "name" and its fail value "643"')
+def get_params_second(context):
+    context.query_params1 = {"name": "643"}
 
-    # También podrías realizar solicitudes directas a la API utilizando requests
-    api_response = requests.get(context.api_url)
-    assert expected_data in api_response.text
 
-    # Cierra el navegador
-    # context.driver.quit()
+@When('I do request with query params')
+def request_first(context):
+    context.response = requests.get(context.api_url, params=context.query_params)
+
+
+@When('I do request with different query params')
+def request_second(context):
+    context.response = requests.get(context.api_url, params=context.query_params1)
+
+
+@Then('I see the statuscode 200')
+def status_first(context):
+    status_code = context.response.status_code
+    assert status_code == 200, f'statuscode: {status_code}'
+
+@Then('I see the statuscode 404')
+def status_second(context):
+    status_code = context.response.status_code
+    assert status_code == 404, f'statuscode: {status_code}'
+
+
+@Then('replies me with name "{name}"')
+def step_impl_first(context, name):
+    contents = context.response.json()['results']
+    content_names = [content['name'] for content in contents]
+    assert name in content_names, f'te llamas {name}'
+
+
+@Then('response me with an error "{error}"')
+def step_impl_second(context, error):
+    message_error = context.response.json()
+    if 'error' in message_error and message_error['error']=='There is nothing here':
+        print("La respuesta del API contiene el mensaje de error esperado")
+    else:
+        print("La respuesta del API no contiene el mensaje de error esperado")
+
+
+
