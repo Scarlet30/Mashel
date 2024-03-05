@@ -1,5 +1,14 @@
 # Default ignored files
 /shelf/
-/.idea/
+.idea/
 *.pyc
+allure-results/
 
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
