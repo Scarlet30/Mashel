@@ -1,6 +1,6 @@
 # MASHLE
 
-_Mashle is a project to API test automation. 
+_Mashle 🔮 🧹 🪄 🧙‍♀️is a project to API test automation. 
 
 ## Start 🚀
 
