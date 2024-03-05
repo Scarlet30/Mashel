@@ -1,10 +1,9 @@
-"""from locust import HttpUser, between
+from locust import HttpUser, task, between
 
 
-class MyApi(HttpUser):
+class RickAndMortyApi(HttpUser):
     wait_time = between(1, 2)
 
     @task
-    def test_api(self):
+    def test_api_character(self):
         self.client.get("/api/character/?name=rick")
-"""
