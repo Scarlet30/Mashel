@@ -16,5 +16,10 @@
       And  response me with an error "There is nothing here"
 
 
-
+    Scenario: Request to API with data about a episode more character information
+      Given I have an endpoint "https://rickandmortyapi.com/api/character/"
+      And I count in the following query params "name" and its value "rick"
+      When I do request
+      Then I see the statuscode
+      And replies me with name "Rick Sanchez"""
 
