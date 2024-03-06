@@ -47,13 +47,13 @@ behave
 _For generate report with allure: _
 
 ```
-behave -f allure_behave.formatter:AllureFormatter -o allure-results .\features
+behave -f allure_behave.formatter:AllureFormatter -o allure-results
 ```
 
 _For watching report: _
 
 ```
-allure serve allure-reports
+allure serve allure-results
 ```
 _For executing load test with locust, just you have that run the command next in your consola_
 
