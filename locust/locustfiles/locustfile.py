@@ -6,4 +6,4 @@ class RickAndMortyApi(HttpUser):
 
     @task
     def test_api_character(self):
-        self.client.get("/api/character/?name=rick")
+        self.client.get("/api/character")
