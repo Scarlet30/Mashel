@@ -17,13 +17,17 @@ def get_params_second(context):
     context.query_params1 = {"name": "643"}
 
 
-@Given('I count in the following query params "species" and "status"')
+@Given('I count in the following query params')
 def get_params_third(context):
-    context.query_params2 = {"status": "Alive"}
+    context.query_params = {}
+    for row in context.table:
+        key = row['key']
+        value = row['value']
+        context.query_params[key] = value
 
 
-@Given('I count in the following query params "name" and "gender"')
-def get_params_third(context, param3, value3):
+@Given('I count in the following query params "{param3}" with "{value3}"')
+def get_params_four(context, param3, value3):
     context.query_params3 = {param3: value3}
 
 
@@ -37,12 +41,16 @@ def request_second(context):
     context.response = requests.get(context.api_url, params=context.query_params1)
 
 
-@When('I do request with specie and status')
+@When('I do request with status')
 def request_third(context):
-    context.response = requests.get(context.api_url, params=context.query_params2)
+    url = context.api_url
+    if context.query_params:
+        context.api_url += "?" + "&".join([f"{key}={value}" for key, value in context.query_params.items()])
+
+    context.response = requests.get(url)
 
 
-@When('I do request with name and gender')
+@When('I do request with gender')
 def request_third(context):
     context.response = requests.get(context.api_url, params=context.query_params3)
 
@@ -69,27 +77,25 @@ def step_impl_first(context, name):
 @Then('response me with an error "{error}"')
 def step_impl_second(context, error):
     message_error = context.response.json()
-    if 'error' in message_error and message_error['error']=='There is nothing here':
+    if 'error' in message_error and message_error['error'] == error:
         print("La respuesta del API contiene el mensaje de error esperado")
     else:
         print("La respuesta del API no contiene el mensaje de error esperado")
 
 
-@Then('I can to see response specie "{species}" with status "{status}"')
-def step_impl_third(context, species, status):
-    contents1 = context.response.json()['results']
-    content_species = [content['species'] for content in contents1]
-    content_status = [content['status'] for content in contents1]
+@Then('I can see responses with status "{expected_status}" and specie "{expected_specie}"')
+def step_impl_third(context,  expected_specie, expected_status):
+    contents = context.response.json().get('results', [])
+    content_species = [content.get('species', '') for content in contents]
+    content_status = [content.get('status', '') for content in contents]
 
-    assert species in content_species, f'la especie es {species}'
-    assert status in content_status, f'el estado es {status}'
+    assert expected_specie in content_species, f'la especie {expected_specie}'
+    assert expected_status in content_status, f'el estado {expected_status}'
 
 
-@Then('The response with name "Alien Googah" with gender "unknown"')
-def step_impl_fourth(context, name, gender):
-    contents2 = context.response.json()['results']
-    content_name = [content['name'] for content in contents2]
-    content_gender = [content['gender'] for content in contents2]
+@Then('The response with gender "{gender}"')
+def step_impl_fourth(context, gender):
+    contents = context.response.json()['results']
+    content_gender = [content['gender'] for content in contents]
 
-    assert name in content_name, f'el personaje es {name}'
     assert gender in content_gender, f'su genero es {gender}'
