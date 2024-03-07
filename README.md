@@ -4,7 +4,7 @@ _Mashle 🔮 🧹 🪄 🧙‍♀️is a project to API test automation.
 
 ## Start 🚀
 
-_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas_
+_This instructions help you install in your local machine to testing or development _
 
 
 ### Pre-requeriments 📋
@@ -60,10 +60,5 @@ _For executing load test with locust, just you have that run the command next in
 ```
 locust
 ```
-
-
-
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
-
 
 
